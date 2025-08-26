@@ -19,6 +19,7 @@ export function CashAppQR({ cashtag, amount, memo, className = '' }: CashAppQRPr
     <div className={`text-center ${className}`}>
       <p className="text-sm text-gray-400 mb-2">Or scan this QR code:</p>
       <div className="bg-white p-4 rounded-lg inline-block">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img 
           src={qrCodeUrl}
           alt="Cash App QR Code" 

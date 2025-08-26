@@ -10,7 +10,7 @@ import { CashAppQR } from '@/components/CashAppQR'
 
 export function CheckoutForm() {
   const router = useRouter()
-  const { cart, getTotal, clearCart } = useCart()
+  const { cart, getTotal } = useCart() // clearCart unused
   const [paymentMethod, setPaymentMethod] = useState<'cashapp' | 'zelle' | ''>('')
   const [notes, setNotes] = useState('')
   const [loading, setLoading] = useState(false)
@@ -227,7 +227,7 @@ export function CheckoutForm() {
             
             {/* Email Instructions */}
             <div className="bg-blue-900 border border-blue-700 text-blue-200 px-4 py-3 rounded-lg mb-4">
-              <div className="font-bold mb-2">📧 What happens when you click "Pay Now":</div>
+              <div className="font-bold mb-2">📧 What happens when you click &quot;Pay Now&quot;:</div>
               <div className="text-sm space-y-1">
                 <div>1. Your order will be saved to our system</div>
                 <div>2. Email notifications will be sent automatically</div>
@@ -273,7 +273,7 @@ export function CheckoutForm() {
                 <p className="mb-2">Send <span className="font-bold text-white">{formatPrice(getTotal())}</span> via Zelle to:</p>
                 <p className="font-mono text-lg text-white">305-726-3729</p>
                 <p className="text-sm text-gray-400 mt-2">
-                  Please include "Lowkey Kava Order" in the memo field.
+                  Please include &quot;Lowkey Kava Order&quot; in the memo field.
                 </p>
               </div>
             )}

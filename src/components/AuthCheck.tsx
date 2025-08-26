@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import { User } from '@supabase/supabase-js'
 
 interface AuthCheckProps {
   children: React.ReactNode
@@ -10,12 +11,12 @@ interface AuthCheckProps {
 
 export function AuthCheck({ children }: AuthCheckProps) {
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<User | null>(null)
   const router = useRouter()
 
   useEffect(() => {
     checkAuth()
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const checkAuth = async () => {
     try {

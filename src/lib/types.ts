@@ -15,6 +15,9 @@ export type CartItem = {
   size: Product['size']
   qty: number
   price_cents: number
+  strains?: string[]
+  flavor?: string
+  flavorIntensity?: string
 }
 
 export type Order = {

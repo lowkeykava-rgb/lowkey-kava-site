@@ -7,7 +7,7 @@ interface AgeGateProps {
 }
 
 export function AgeGate({ children }: AgeGateProps) {
-  const [isVerified, setIsVerified] = useState(false)
+  const [, setIsVerified] = useState(false)
   const [showGate, setShowGate] = useState(true)
 
   useEffect(() => {

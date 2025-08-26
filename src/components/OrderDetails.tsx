@@ -16,7 +16,7 @@ export function OrderDetails({ orderId }: OrderDetailsProps) {
 
   useEffect(() => {
     fetchOrder()
-  }, [orderId])
+  }, [orderId]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchOrder = async () => {
     try {

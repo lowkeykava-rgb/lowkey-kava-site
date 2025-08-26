@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/client'
 import { loginSchema } from '@/lib/validations'
 
 export function LoginForm() {
-  const router = useRouter()
+  // const router = useRouter() // Unused variable
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
@@ -93,7 +93,7 @@ export function LoginForm() {
       </button>
 
       <div className="text-center text-sm text-slate-600">
-        Don't have an account?{' '}
+        Don&apos;t have an account?{' '}
         <a href="/signup" className="text-slate-900 hover:underline font-medium">
           Sign up here
         </a>

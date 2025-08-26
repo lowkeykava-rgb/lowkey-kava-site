@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { CartItem } from '@/lib/types'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -8,7 +9,7 @@ export async function POST(request: NextRequest) {
     const { orderId, customerName, customerEmail, items, totalCents, paymentMethod, notes, confirmationCode } = await request.json()
 
     // Create the email content
-    const itemsList = items.map((item: any) => {
+                 const itemsList = items.map((item: CartItem) => {
       const options = []
       if (item.strains) options.push(`Strains: ${item.strains.join(', ')}`)
       if (item.flavor) options.push(`Flavor: ${item.flavor}`)

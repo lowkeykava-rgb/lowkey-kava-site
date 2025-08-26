@@ -13,7 +13,7 @@ export function CartSheet() {
     updateQuantity,
     removeFromCart,
     getTotal,
-    getItemCount
+    // getItemCount // Unused variable
   } = useCart()
 
   console.log('CartSheet render - isOpen:', isOpen, 'cart length:', cart.length)

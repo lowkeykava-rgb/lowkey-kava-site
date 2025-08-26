@@ -9,7 +9,7 @@ import { Logo } from '@/components/Logo'
 interface Order {
   id: string
   user_id: string
-  items: any[]
+  items: CartItem[]
   total_cents: number
   payment: 'cashapp' | 'zelle'
   status: 'pending' | 'awaiting_payment' | 'paid' | 'fulfilled' | 'cancelled'
@@ -175,7 +175,7 @@ export default function AdminPage() {
                   <div className="mb-3">
                     <div className="text-gray-300 text-sm mb-1">Items:</div>
                     <div className="text-gray-400 text-sm">
-                      {order.items.map((item: any, index: number) => (
+                      {order.items.map((item: CartItem, index: number) => (
                         <div key={index}>
                           {item.name} ({item.size.replace('_', ' ')}) - Qty: {item.qty}
                         </div>
