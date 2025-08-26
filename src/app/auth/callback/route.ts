@@ -63,6 +63,8 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // URL to redirect to after sign in process completes
-  return NextResponse.redirect(`${origin}${next}`)
+  // Always redirect to menu after successful authentication
+  // This ensures users go to the menu whether they logged in or signed up
+  const redirectUrl = new URL('/menu', origin)
+  return NextResponse.redirect(redirectUrl)
 } 
