@@ -22,6 +22,7 @@ const dancingScript = Dancing_Script({
 export const metadata: Metadata = {
   title: process.env.NEXT_PUBLIC_SITE_NAME || "Lowkey Kava Orders",
   description: "Invite-only ordering for Kava and Kratom beverages",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
 };
 
 export default function RootLayout({
