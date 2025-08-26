@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { SignupForm } from '@/components/SignupForm'
 
 export default function SignupPage() {
@@ -13,7 +14,9 @@ export default function SignupPage() {
           </p>
         </div>
         
-        <SignupForm />
+        <Suspense fallback={<div className="text-center py-8">Loading...</div>}>
+          <SignupForm />
+        </Suspense>
       </div>
     </div>
   )
