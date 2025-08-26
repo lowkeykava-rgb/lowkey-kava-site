@@ -19,7 +19,7 @@ export function ProductList() {
   const [selectedStrains, setSelectedStrains] = useState<Record<string, Strain>>({})
   const [selectedFlavors, setSelectedFlavors] = useState<Record<string, Flavor>>({})
   const [selectedFlavorIntensity, setSelectedFlavorIntensity] = useState<Record<string, FlavorIntensity>>({})
-  const { addToCart, isOpen, setIsOpen, getItemCount, cart } = useCart()
+  const { addToCart, setIsOpen, getItemCount, cart } = useCart()
 
   useEffect(() => {
     fetchProducts()
