@@ -69,9 +69,18 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // Always redirect to menu after successful authentication
-  // This ensures users go to the menu whether they logged in or signed up
-  const redirectUrl = new URL('/menu', origin)
+  // Use the next parameter if provided, otherwise default to /menu
+  const redirectPath = next || '/menu'
+  const redirectUrl = new URL(redirectPath, origin)
   console.log('Redirecting to:', redirectUrl.toString())
-  return NextResponse.redirect(redirectUrl)
+  
+  // Use a more explicit redirect with status 302
+  const response = NextResponse.redirect(redirectUrl, 302)
+  
+  // Add cache control headers to prevent caching
+  response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate')
+  response.headers.set('Pragma', 'no-cache')
+  response.headers.set('Expires', '0')
+  
+  return response
 } 
