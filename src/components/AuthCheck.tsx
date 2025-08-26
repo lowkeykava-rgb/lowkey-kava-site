@@ -30,15 +30,12 @@ export function AuthCheck({ children }: AuthCheckProps) {
       }
       
       if (session?.user) {
-        console.log('User is authenticated:', session.user.email)
         setUser(session.user)
         
         // Redirect to menu if they're on the home page
         if (window.location.pathname === '/') {
           router.push('/menu')
         }
-      } else {
-        console.log('No authenticated user found')
       }
     } catch (error) {
       console.error('Auth check failed:', error)

@@ -16,14 +16,9 @@ export function CartSheet() {
     // getItemCount // Unused variable
   } = useCart()
 
-  console.log('CartSheet render - isOpen:', isOpen, 'cart length:', cart.length)
-
   if (!isOpen) {
-    console.log('CartSheet returning null because isOpen is false')
     return null
   }
-
-  console.log('CartSheet rendering modal')
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50">

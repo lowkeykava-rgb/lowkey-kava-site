@@ -52,17 +52,17 @@ export function ProductList() {
     const flavorIntensity = selectedFlavorIntensity[product.id]
     
     if (product.name.includes('Kratom') && !strain) {
-      alert('Please select a strain for Kratom products')
+      setError('Please select a strain for Kratom products')
       return
     }
     
     if (product.name.includes('Flavored') && !flavor) {
-      alert('Please select a flavor for flavored products')
+      setError('Please select a flavor for flavored products')
       return
     }
     
     if (product.name.includes('Flavored') && !flavorIntensity) {
-      alert('Please select flavor intensity for flavored products')
+      setError('Please select flavor intensity for flavored products')
       return
     }
 
@@ -128,10 +128,7 @@ export function ProductList() {
         <button
           key={cart.length} // Force re-render when cart changes
           onClick={() => {
-            console.log('Cart button clicked, setting isOpen to true')
-            console.log('Current isOpen state:', isOpen)
             setIsOpen(true)
-            console.log('Set isOpen to true')
           }}
           className="relative bg-white text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors font-medium flex items-center space-x-2 cursor-pointer"
         >

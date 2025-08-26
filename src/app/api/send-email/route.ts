@@ -90,24 +90,20 @@ export async function POST(request: NextRequest) {
     `
 
     // Send admin notification email
-    console.log('Sending admin email to: lowkeykava@gmail.com')
     const adminEmail = await resend.emails.send({
       from: 'onboarding@resend.dev', // Use Resend's default domain for now
       to: 'lowkeykava@gmail.com',
       subject: adminSubject,
       html: adminHtml,
     })
-    console.log('Admin email result:', adminEmail)
 
     // Send customer confirmation email
-    console.log('Sending customer email to:', customerEmail)
     const customerEmailResult = await resend.emails.send({
       from: 'onboarding@resend.dev', // Use Resend's default domain for now
       to: customerEmail,
       subject: customerSubject,
       html: customerHtml,
     })
-    console.log('Customer email result:', customerEmailResult)
 
     return NextResponse.json({ 
       success: true, 

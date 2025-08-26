@@ -11,6 +11,7 @@ export function SignupForm() {
   const searchParams = useSearchParams()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState(false)
   const [inviteCode, setInviteCode] = useState('')
   const [formData, setFormData] = useState({
     email: '',
@@ -86,8 +87,10 @@ export function SignupForm() {
       }
 
       // Show success message
-      alert('Check your email for a magic link to complete your signup!')
-      router.push('/login')
+      setSuccess(true)
+      setTimeout(() => {
+        router.push('/login')
+      }, 2000)
 
     } catch (err) {
       console.error('Signup error:', err)
@@ -100,6 +103,19 @@ export function SignupForm() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  if (success) {
+    return (
+      <div className="text-center">
+        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4">
+          Check your email for a magic link to complete your signup!
+        </div>
+        <div className="text-slate-600 text-sm">
+          Redirecting to login page...
+        </div>
+      </div>
+    )
   }
 
   return (

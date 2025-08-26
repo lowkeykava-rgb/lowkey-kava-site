@@ -23,23 +23,27 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   // Load cart from localStorage on mount
   useEffect(() => {
-    const savedCart = localStorage.getItem('cart')
-    if (savedCart) {
-      try {
-        setCart(JSON.parse(savedCart))
-      } catch (error) {
-        console.error('Error parsing cart from localStorage:', error)
+    if (typeof window !== 'undefined') {
+      const savedCart = localStorage.getItem('cart')
+      if (savedCart) {
+        try {
+          setCart(JSON.parse(savedCart))
+        } catch (error) {
+          console.error('Error parsing cart from localStorage:', error)
+        }
       }
     }
   }, [])
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart))
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cart', JSON.stringify(cart))
+    }
   }, [cart])
 
   const addToCart = (item: CartItem) => {
-    console.log('Adding to cart:', item)
+
     setCart(prevCart => {
       const existingItem = prevCart.find(
         cartItem => cartItem.product_id === item.product_id && cartItem.size === item.size
@@ -51,11 +55,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
             ? { ...cartItem, qty: cartItem.qty + item.qty }
             : cartItem
         )
-        console.log('Updated cart (existing item):', newCart)
         return newCart
       } else {
         const newCart = [...prevCart, item]
-        console.log('Updated cart (new item):', newCart)
         return newCart
       }
     })
@@ -98,7 +100,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }
 
   const setIsOpenWithLog = (open: boolean) => {
-    console.log('CartContext setIsOpen called with:', open)
     setIsOpen(open)
   }
 

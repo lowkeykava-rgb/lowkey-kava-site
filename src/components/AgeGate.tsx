@@ -12,17 +12,21 @@ export function AgeGate({ children }: AgeGateProps) {
 
   useEffect(() => {
     // Check if user has already verified age
-    const verified = localStorage.getItem('age-verified')
-    if (verified === 'true') {
-      setIsVerified(true)
-      setShowGate(false)
+    if (typeof window !== 'undefined') {
+      const verified = localStorage.getItem('age-verified')
+      if (verified === 'true') {
+        setIsVerified(true)
+        setShowGate(false)
+      }
     }
   }, [])
 
   const handleVerify = () => {
     setIsVerified(true)
     setShowGate(false)
-    localStorage.setItem('age-verified', 'true')
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('age-verified', 'true')
+    }
   }
 
   const handleDecline = () => {

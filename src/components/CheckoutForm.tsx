@@ -91,7 +91,7 @@ export function CheckoutForm() {
             console.error('Email sending failed:', emailResult.error)
             // Don't fail the order if email fails
           } else {
-            console.log('Emails sent successfully:', emailResult)
+      
           }
           
         } catch (emailError) {
@@ -100,7 +100,7 @@ export function CheckoutForm() {
         }
 
         setOrderPlaced(true)
-        console.log('Order placed successfully:', order.id)
+  
 
       } catch (err) {
         console.error('Order placement error:', err)
