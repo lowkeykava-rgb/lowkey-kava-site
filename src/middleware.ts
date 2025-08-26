@@ -40,11 +40,16 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/menu', request.url))
   }
 
-  // If user is not signed in and the current path is not /login or /signup
+  // If user is not signed in and trying to access protected routes
   // redirect the user to /login
-  if (!user && !['/login', '/signup', '/invite'].includes(request.nextUrl.pathname)) {
+  if (!user && ['/menu', '/checkout', '/order', '/subscriptions', '/account', '/admin'].some(path => 
+    request.nextUrl.pathname.startsWith(path)
+  )) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
+
+  // Allow access to public routes for unauthenticated users
+  // This includes: /, /login, /signup, /invite, /auth/callback
 
   return supabaseResponse
 }
