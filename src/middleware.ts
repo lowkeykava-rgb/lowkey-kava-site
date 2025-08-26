@@ -35,22 +35,19 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  // If user is signed in and the current path is / redirect the user to /menu
-  // But don't redirect if they're coming from auth callback
-  if (user && request.nextUrl.pathname === '/' && !request.nextUrl.searchParams.has('code')) {
+  // Only redirect authenticated users away from home page
+  if (user && request.nextUrl.pathname === '/') {
     return NextResponse.redirect(new URL('/menu', request.url))
   }
 
-  // If user is not signed in and trying to access protected routes
-  // redirect the user to /login
-  if (!user && ['/menu', '/checkout', '/order', '/subscriptions', '/account', '/admin'].some(path => 
+  // Only protect specific routes that require authentication
+  if (!user && ['/checkout', '/order', '/subscriptions', '/account', '/admin'].some(path => 
     request.nextUrl.pathname.startsWith(path)
   )) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
-  // Allow access to public routes for unauthenticated users
-  // This includes: /, /login, /signup, /invite, /auth/callback
+  // Allow access to /menu for everyone (will be handled by the page component)
 
   return supabaseResponse
 }

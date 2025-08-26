@@ -74,31 +74,6 @@ export async function GET(request: NextRequest) {
   const redirectUrl = new URL(redirectPath, origin)
   console.log('Redirecting to:', redirectUrl.toString())
   
-  // Return HTML that will redirect the user
-  const html = `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>Redirecting...</title>
-        <meta http-equiv="refresh" content="0;url=${redirectUrl.toString()}">
-        <script>
-          window.location.href = '${redirectUrl.toString()}';
-        </script>
-      </head>
-      <body>
-        <p>Redirecting to menu...</p>
-        <p>If you are not redirected automatically, <a href="${redirectUrl.toString()}">click here</a>.</p>
-      </body>
-    </html>
-  `
-  
-  return new Response(html, {
-    status: 200,
-    headers: {
-      'Content-Type': 'text/html',
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      'Pragma': 'no-cache',
-      'Expires': '0'
-    }
-  })
+  // Use simple redirect - the issue might be elsewhere
+  return NextResponse.redirect(redirectUrl, 302)
 } 
