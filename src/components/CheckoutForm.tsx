@@ -231,7 +231,7 @@ export function CheckoutForm() {
               <div className="text-sm space-y-1">
                 <div>1. Your order will be saved to our system</div>
                 <div>2. Email notifications will be sent automatically</div>
-                <div>3. You'll receive a confirmation email with payment details</div>
+                <div>3. You&apos;ll receive a confirmation email with payment details</div>
                 <div>4. Our team will be notified of your order</div>
                 <div>5. Then proceed with payment using the instructions below</div>
               </div>
