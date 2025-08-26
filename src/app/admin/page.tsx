@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/client'
 import { formatPrice } from '@/lib/utils'
 import { sendPaymentConfirmationEmail } from '@/lib/email'
 import { Logo } from '@/components/Logo'
+import { CartItem } from '@/lib/types'
 
 interface Order {
   id: string
