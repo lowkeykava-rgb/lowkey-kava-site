@@ -74,13 +74,31 @@ export async function GET(request: NextRequest) {
   const redirectUrl = new URL(redirectPath, origin)
   console.log('Redirecting to:', redirectUrl.toString())
   
-  // Use a more explicit redirect with status 302
-  const response = NextResponse.redirect(redirectUrl, 302)
+  // Return HTML that will redirect the user
+  const html = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Redirecting...</title>
+        <meta http-equiv="refresh" content="0;url=${redirectUrl.toString()}">
+        <script>
+          window.location.href = '${redirectUrl.toString()}';
+        </script>
+      </head>
+      <body>
+        <p>Redirecting to menu...</p>
+        <p>If you are not redirected automatically, <a href="${redirectUrl.toString()}">click here</a>.</p>
+      </body>
+    </html>
+  `
   
-  // Add cache control headers to prevent caching
-  response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate')
-  response.headers.set('Pragma', 'no-cache')
-  response.headers.set('Expires', '0')
-  
-  return response
+  return new Response(html, {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/html',
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    }
+  })
 } 
