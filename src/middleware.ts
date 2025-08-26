@@ -36,7 +36,8 @@ export async function middleware(request: NextRequest) {
   } = await supabase.auth.getUser()
 
   // If user is signed in and the current path is / redirect the user to /menu
-  if (user && request.nextUrl.pathname === '/') {
+  // But don't redirect if they're coming from auth callback
+  if (user && request.nextUrl.pathname === '/' && !request.nextUrl.searchParams.has('code')) {
     return NextResponse.redirect(new URL('/menu', request.url))
   }
 
@@ -61,8 +62,9 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
+     * - auth/callback (handled separately)
      * Feel free to modify this pattern to include more paths.
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|auth/callback|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 }

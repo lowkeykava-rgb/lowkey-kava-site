@@ -6,6 +6,8 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get('code')
   const next = searchParams.get('next') ?? '/menu'
 
+  console.log('Auth callback called with:', { code: !!code, origin, next })
+
   if (code) {
     const supabase = await createClient()
     
@@ -16,6 +18,8 @@ export async function GET(request: NextRequest) {
       const { data: { user } } = await supabase.auth.getUser()
       
       if (user) {
+        console.log('User authenticated:', user.email)
+        
         // Check if profile exists, if not create it
         const { data: profile } = await supabase
           .from('profiles')
@@ -60,11 +64,14 @@ export async function GET(request: NextRequest) {
           }
         }
       }
+    } else {
+      console.error('Auth error:', error)
     }
   }
 
   // Always redirect to menu after successful authentication
   // This ensures users go to the menu whether they logged in or signed up
   const redirectUrl = new URL('/menu', origin)
+  console.log('Redirecting to:', redirectUrl.toString())
   return NextResponse.redirect(redirectUrl)
 } 
