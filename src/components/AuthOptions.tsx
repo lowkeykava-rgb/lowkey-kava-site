@@ -1,11 +1,24 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { createClient } from '@/lib/supabase/client'
 
 export function AuthOptions() {
   const [showInviteForm, setShowInviteForm] = useState(false)
   const [inviteCode, setInviteCode] = useState('')
+  const [user, setUser] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      setUser(user)
+      setLoading(false)
+    }
+    checkUser()
+  }, [])
 
   const handleInviteSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -13,6 +26,40 @@ export function AuthOptions() {
       // Redirect to signup with invite code
       window.location.href = `/signup?invite=${encodeURIComponent(inviteCode.trim())}`
     }
+  }
+
+  if (loading) {
+    return (
+      <div className="max-w-md mx-auto text-center">
+        <div className="text-slate-600">Loading...</div>
+      </div>
+    )
+  }
+
+  if (user) {
+    return (
+      <div className="max-w-md mx-auto">
+        <div className="space-y-4">
+          <div className="text-center">
+            <h2 className="text-2xl font-semibold text-slate-900 mb-2">
+              Welcome back, {user.email}!
+            </h2>
+            <p className="text-slate-600 mb-6">
+              You're already signed in. Ready to order?
+            </p>
+          </div>
+          
+          <div className="space-y-3">
+            <Link
+              href="/menu"
+              className="w-full bg-slate-900 text-white py-3 px-6 rounded-lg hover:bg-slate-800 transition-colors font-medium block text-center"
+            >
+              Go to Menu
+            </Link>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (

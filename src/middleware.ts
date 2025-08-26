@@ -35,10 +35,8 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Only redirect authenticated users away from home page
-  if (user && request.nextUrl.pathname === '/') {
-    return NextResponse.redirect(new URL('/menu', request.url))
-  }
+  // Don't redirect authenticated users from home page - let them see the age gate and main page
+  // The page component will handle showing appropriate content based on auth status
 
   // Only protect specific routes that require authentication
   if (!user && ['/checkout', '/order', '/subscriptions', '/account', '/admin'].some(path => 
