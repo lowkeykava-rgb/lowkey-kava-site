@@ -7,7 +7,7 @@ import { createClient } from '@/lib/supabase/client'
 export function AuthOptions() {
   const [showInviteForm, setShowInviteForm] = useState(false)
   const [inviteCode, setInviteCode] = useState('')
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<{ email?: string } | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export function AuthOptions() {
               Welcome back, {user.email}!
             </h2>
             <p className="text-slate-600 mb-6">
-              You're already signed in. Ready to order?
+              You&apos;re already signed in. Ready to order?
             </p>
           </div>
           

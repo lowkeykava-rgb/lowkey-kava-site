@@ -95,7 +95,13 @@ export function SignupForm() {
 
     } catch (err) {
       console.error('Signup error:', err)
-      setError(err instanceof Error ? err.message : 'An error occurred during signup')
+      if (err instanceof Error) {
+        setError(err.message)
+      } else if (typeof err === 'object' && err !== null && 'message' in err) {
+        setError(String(err.message))
+      } else {
+        setError('An error occurred during signup')
+      }
     } finally {
       setLoading(false)
     }

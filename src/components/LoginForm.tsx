@@ -40,7 +40,13 @@ export function LoginForm() {
 
     } catch (err) {
       console.error('Login error:', err)
-      setError(err instanceof Error ? err.message : 'An error occurred during login')
+      if (err instanceof Error) {
+        setError(err.message)
+      } else if (typeof err === 'object' && err !== null && 'message' in err) {
+        setError(String(err.message))
+      } else {
+        setError('An error occurred during login')
+      }
     } finally {
       setLoading(false)
     }
