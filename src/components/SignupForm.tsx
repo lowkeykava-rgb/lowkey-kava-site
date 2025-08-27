@@ -74,6 +74,7 @@ export function SignupForm() {
         email: validatedData.email,
         options: {
           emailRedirectTo: `${window.location.origin}/auth/callback?next=/menu`,
+          shouldCreateUser: true,
           data: {
             name: validatedData.name,
             phone: validatedData.phone,
